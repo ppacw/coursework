@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Earthworm
+comment1.params=randomAge\ field\ location
+comment1.target=Earthworm(boolean,\ Field,\ Location)
+comment1.text=\n\ Create\ a\ new\ rabbit.\ A\ rabbit\ may\ be\ created\ with\ age\n\ zero\ (a\ new\ born)\ or\ with\ a\ random\ age.\n\ \n\ @param\ randomAge\ If\ true,\ the\ rabbit\ will\ have\ a\ random\ age.\n\ @param\ field\ The\ field\ currently\ occupied.\n\ @param\ location\ The\ location\ within\ the\ field.\n
+comment2.params=newEarthworms
+comment2.target=void\ giveBirth(java.util.List)
+comment2.text=\n\ Check\ whether\ or\ not\ this\ rabbit\ is\ to\ give\ birth\ at\ this\ step.\n\ New\ births\ will\ be\ made\ into\ free\ adjacent\ locations.\n\ @param\ newRabbits\ A\ list\ to\ return\ newly\ born\ rabbits.\n
+numComments=3

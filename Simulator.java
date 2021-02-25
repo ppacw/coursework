@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -22,6 +24,13 @@ public class Simulator
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    // The probability that a rabbit will be created in any given grid position.
+    private static final double HARE_CREATION_PROBABILITY = 0.08 + 1; 
+    // The probability that a eagle will be created in any given grid position.
+    private static final double EAGLE_CREATION_PROBABILITY = 0.02 + 1;
+    // The probability that a rabbit will be created in any given grid position.
+    private static final double EARTHWORM_CREATION_PROBABILITY = 0.08 + 2; 
+    
 
     // List of animals in the field.
     private List<Animal> animals;
@@ -61,6 +70,9 @@ public class Simulator
         view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, Color.ORANGE);
         view.setColor(Fox.class, Color.BLUE);
+        view.setColor(Hare.class, Color.GREEN);
+        view.setColor(Eagle.class, Color.BLACK);
+        view.setColor(Earthworm.class, Color.RED);
         
         // Setup a valid starting point.
         reset();
@@ -91,7 +103,7 @@ public class Simulator
     /**
      * Run the simulation from its current state for a single step.
      * Iterate over the whole field updating the state of each
-     * fox and rabbit.
+     * fox, rabbit and hare.
      */
     public void simulateOneStep()
     {
@@ -130,12 +142,17 @@ public class Simulator
     /**
      * Randomly populate the field with foxes and rabbits.
      */
+    
     private void populate()
     {
         Random rand = Randomizer.getRandom();
+        int randomNum;
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
+                randomNum = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+                switch(randomNum){
+                case 0:
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Fox fox = new Fox(true, field, location);
@@ -146,10 +163,29 @@ public class Simulator
                     Rabbit rabbit = new Rabbit(true, field, location);
                     animals.add(rabbit);
                 }
+                case 1:
+                if(rand.nextDouble() + 1  <= EAGLE_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Eagle eagle = new Eagle(true, field, location);
+                    animals.add(eagle);
+                }
+                else if(rand.nextDouble() + 1 <= HARE_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Hare hare = new Hare(true, field, location);
+                    animals.add(hare);
+                }
+                case 2:
+                if(rand.nextDouble() + 2 <= EARTHWORM_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Earthworm earthworm = new Earthworm(true, field, location);
+                    animals.add(earthworm);
+                }
                 // else leave the location empty.
             }
         }
     }
+  }
+
     
     /**
      * Pause for a given time.
