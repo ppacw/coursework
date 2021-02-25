@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Prey
+comment0.text=\n\ Write\ a\ description\ of\ interface\ Prey\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=newRabbits
+comment1.target=void\ act(java.util.List)
+comment2.params=
+comment2.target=boolean\ isAlive()
+comment3.params=
+comment3.target=void\ setDead()
+numComments=4

@@ -9,7 +9,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Fox extends Animal
+public class Fox extends Animal implements Predator
 {
     // Characteristics shared by all foxes (class variables).
     
@@ -106,6 +106,8 @@ public class Fox extends Animal
         }
     }
     
+   
+    
     /**
      * Look for rabbits adjacent to the current location.
      * Only the first live rabbit is eaten.
@@ -119,10 +121,10 @@ public class Fox extends Animal
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.setDead();
+            if(animal instanceof Prey) {
+                Prey prey = (Prey) animal;
+                if(prey.isAlive()) { 
+                    prey.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }

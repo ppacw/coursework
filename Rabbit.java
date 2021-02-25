@@ -8,7 +8,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Rabbit extends Animal
+public class Rabbit extends Animal implements Prey
 {
     // Characteristics shared by all rabbits (class variables).
 
@@ -65,6 +65,14 @@ public class Rabbit extends Animal
                 setDead();
             }
         }
+    }
+    
+    public boolean isAlive(){
+        return super.isAlive();
+    }
+    
+    public void setDead(){
+        super.setDead();
     }
 
     /**

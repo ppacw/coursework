@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Predator
+comment0.text=\n\ Interface\ for\ predators,\ who\ in\ the\ eco\ system\ feed\ on\ prey\n\n\ @author\ (Aadam\ sheikh)\n\ @version\ (1.0)\n
+comment1.params=newFoxes
+comment1.target=void\ act(java.util.List)
+numComments=2
