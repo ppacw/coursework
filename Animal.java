@@ -16,7 +16,7 @@ public abstract class Animal
     // The animal's position in the field.
     private Location location;
     
-    /**
+   /**
      * Create a new animal at location in field.
      * 
      * @param field The field currently occupied.
@@ -29,14 +29,14 @@ public abstract class Animal
         setLocation(location);
     }
     
-    /**
+   /**
      * Make this animal act - that is: make it do
      * whatever it wants/needs to do.
      * @param newAnimals A list to receive newly born animals.
      */
     abstract public void act(List<Animal> newAnimals);
 
-    /**
+   /**
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
@@ -45,7 +45,7 @@ public abstract class Animal
         return alive;
     }
 
-    /**
+   /**
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
      */
@@ -59,7 +59,7 @@ public abstract class Animal
         }
     }
 
-    /**
+   /**
      * Return the animal's location.
      * @return The animal's location.
      */
@@ -68,7 +68,7 @@ public abstract class Animal
         return location;
     }
     
-    /**
+   /**
      * Place the animal at the new location in the given field.
      * @param newLocation The animal's new location.
      */
@@ -81,7 +81,7 @@ public abstract class Animal
         field.place(this, newLocation);
     }
     
-    /**
+   /**
      * Return the animal's field.
      * @return The animal's field.
      */

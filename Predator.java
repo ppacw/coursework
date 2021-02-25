@@ -9,11 +9,6 @@ import java.util.List;
 public interface Predator 
 {
     
-    
-    public void act(List<Animal> newFoxes);
-    
-  
-    
-    
+      
     
 }
