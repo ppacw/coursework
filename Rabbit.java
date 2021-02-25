@@ -8,7 +8,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Rabbit extends PreyParent implements Prey
+public class Rabbit extends PreyParent
 {
    // Characteristics shared by all rabbits (class variables).
 
