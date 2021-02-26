@@ -139,6 +139,18 @@ public class Simulator
         view.showStatus(step, field);
     }
     
+    public Sex chooseSex(){
+        int randomSexNum;
+        randomSexNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+        if(randomSexNum == 0){
+            return Sex.MALE;
+        }
+        
+        return Sex.FEMALE;
+    }
+        
+        
+    
     /**
      * Randomly populate the field with foxes and rabbits.
      */
@@ -147,15 +159,19 @@ public class Simulator
     {
         Random rand = Randomizer.getRandom();
         int randomNum;
+        
+        
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 randomNum = ThreadLocalRandom.current().nextInt(0, 2 + 1);
+                
+                
                 switch(randomNum){
                 case 0:
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
+                    Fox fox = new Fox(true, field, location,chooseSex());
                     animals.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
@@ -166,7 +182,7 @@ public class Simulator
                 case 1:
                 if(rand.nextDouble() + 1  <= EAGLE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Eagle eagle = new Eagle(true, field, location);
+                    Eagle eagle = new Eagle(true, field, location,chooseSex());
                     animals.add(eagle);
                 }
                 else if(rand.nextDouble() + 1 <= HARE_CREATION_PROBABILITY) {
@@ -181,10 +197,10 @@ public class Simulator
                     animals.add(earthworm);
                 }
                 // else leave the location empty.
+                }
             }
         }
     }
-  }
 
     
     /**

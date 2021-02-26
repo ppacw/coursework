@@ -12,4 +12,6 @@ public interface Prey
     public boolean isAlive();
     
     public void setDead();
+    
+    public Sex getSex();
 }

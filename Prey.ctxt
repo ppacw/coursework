@@ -7,4 +7,6 @@ comment2.params=
 comment2.target=boolean\ isAlive()
 comment3.params=
 comment3.target=void\ setDead()
-numComments=4
+comment4.params=
+comment4.target=Sex\ getSex()
+numComments=5

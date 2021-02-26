@@ -32,6 +32,9 @@ public class Fox extends PredatorParent
     private int age;
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
+    //Animal gender
+    private Sex sex;
+    
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -41,7 +44,7 @@ public class Fox extends PredatorParent
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location){
+    public Fox(boolean randomAge, Field field, Location location, Sex sex){
         super(randomAge, field, location, BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, PREY_FOOD_VALUE);
     }
     
@@ -53,11 +56,10 @@ public class Fox extends PredatorParent
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
+            Fox young = new Fox(false, field, loc,sex);
             newPredators.add(young);
         }
     }
-    
     
     
 }

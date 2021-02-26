@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A class representing shared characteristics of animals.
@@ -15,15 +16,29 @@ public abstract class Animal
     private Field field;
     // The animal's position in the field.
     private Location location;
+    // The animal's gender
+    private Sex sex;
+    
+    
     
    /**
-     * Create a new animal at location in field.
+     * Create a new animal at location in field with sex(Male/Female).
      * 
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param sex The gender of the animal
      */
     public Animal(Field field, Location location)
     {
+        //Randomises the sex of an animal and stores it in its field.
+        int randomSexNum;
+        randomSexNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+        if(randomSexNum == 0){
+            sex = Sex.MALE;
+        } else { 
+            sex = Sex.FEMALE; }
+        
+
         alive = true;
         this.field = field;
         setLocation(location);
@@ -35,6 +50,8 @@ public abstract class Animal
      * @param newAnimals A list to receive newly born animals.
      */
     abstract public void act(List<Animal> newAnimals);
+    
+ 
 
    /**
      * Check whether the animal is alive or not.
@@ -44,6 +61,15 @@ public abstract class Animal
     {
         return alive;
     }
+    
+   /**
+     * 
+     * @return animal's gender;
+     */
+    protected Sex getSex()
+    {
+        return sex;
+    } 
 
    /**
      * Indicate that the animal is no longer alive.

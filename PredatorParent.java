@@ -33,6 +33,8 @@ public abstract class PredatorParent extends Animal implements Predator
     // The predator's food level, which is increased by eating prey.
     private int foodLevel;
 
+
+
     /**
      * Create a predator. A predator can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
@@ -66,12 +68,12 @@ public abstract class PredatorParent extends Animal implements Predator
      * @param field The field currently occupied.
      * @param newPredatores A list to return newly born predatores.
      */
-    public void act(List<Animal> newPredatores)
+    public void act(List<Animal> newPredators)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newPredatores);            
+            giveBirth(newPredators);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -88,6 +90,7 @@ public abstract class PredatorParent extends Animal implements Predator
             }
         }
     }
+    
 
     /**
      * Increase the age. This could result in the predator's death.
@@ -98,7 +101,7 @@ public abstract class PredatorParent extends Animal implements Predator
         if(age > MAX_AGE) {
             setDead();
         }
-    }
+     }
     
     /**
      * Make this predator more hungry. This could result in the predator's death.
@@ -141,7 +144,7 @@ public abstract class PredatorParent extends Animal implements Predator
     /**
      * Check whether or not this predator is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newPredatores A list to return newly born predatores.
+     * @param newPredatores A list to return newly born predators.
      */
     abstract void giveBirth(List<Animal> newPredatores);
    
@@ -159,12 +162,42 @@ public abstract class PredatorParent extends Animal implements Predator
         }
         return births;
     }
+    
+    /**
+     * 
+     * @return animal's gender;
+     */
+    public Sex getSex()
+    {
+        return super.getSex();
+    } 
+    
 
     /**
-     * A predator can breed if it has reached the breeding age.
+     * A prey can breed if it has reached the breeding age.
+     * @return true if the rabbit can breed, false otherwise.
      */
     protected boolean canBreed()
     {
-        return age >= BREEDING_AGE;
+       if(age >= BREEDING_AGE){
+            Field field = getField();
+            List<Location> adjacent = field.adjacentLocations(getLocation());
+            Iterator<Location> it = adjacent.iterator();
+            while(it.hasNext()) {
+                Location where = it.next();
+                Object animal = field.getObjectAt(where);
+                if(animal instanceof Predator) {
+                  Predator predator = (Predator) animal;
+                  if(predator.getSex().equals(this.getSex())) { 
+                    return true;
+                  }
+                }
+   
+            }
+
+ 
+
+       }
+       return false;
     }
 }

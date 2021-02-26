@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.Random;
+import java.util.Iterator;
+import java.lang.NullPointerException;
 
 /**
  * A simple model of a rabbit.
@@ -28,6 +30,7 @@ public abstract class PreyParent extends Animal implements Prey
     // The rabbit's age.
     private int age;
 
+
     /**
      * Create a new rabbit. A rabbit may be created with age
      * zero (a new born) or with a random age.
@@ -43,7 +46,7 @@ public abstract class PreyParent extends Animal implements Prey
         this.MAX_AGE = MAX_AGE;
         this.BREEDING_PROBABILITY = BREEDING_PROBABILITY;
         this.MAX_LITTER_SIZE = MAX_LITTER_SIZE;
-        
+
         age = 0;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
@@ -97,7 +100,8 @@ public abstract class PreyParent extends Animal implements Prey
      * New births will be made into free adjacent locations.
      * @param newRabbits A list to return newly born rabbits.
      */
-    abstract public void giveBirth(List<Animal> newPrey);
+    abstract public void giveBirth(List<Animal> newRabbits);
+    
     
 
     /**
@@ -113,13 +117,37 @@ public abstract class PreyParent extends Animal implements Prey
         }
         return births;
     }
+    
+    public Sex getSex(){
+        return super.getSex();
+    }
 
     /**
-     * A rabbit can breed if it has reached the breeding age.
+     * A prey can breed if it has reached the breeding age.
      * @return true if the rabbit can breed, false otherwise.
      */
-    private boolean canBreed()
+    protected boolean canBreed()
     {
-        return age >= BREEDING_AGE;
+       if(age >= BREEDING_AGE){
+            Field field = getField();
+            List<Location> adjacent = field.adjacentLocations(getLocation());
+            Iterator<Location> it = adjacent.iterator();
+            while(it.hasNext()) {
+                Location where = it.next();
+                Object animal = field.getObjectAt(where);
+                if(animal instanceof Prey) {
+                  Prey prey = (Prey) animal;
+                  if(prey.getSex().equals(this.getSex())) { 
+                    return true;
+                  }
+                }
+   
+            }
+
+ 
+
+       }
+       return false;
     }
+    
 }

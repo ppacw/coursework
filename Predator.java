@@ -6,9 +6,7 @@ import java.util.List;
  * @author (Aadam sheikh)
  * @version (1.0)
  */
-public interface Predator 
+public interface Predator
 {
-    
-      
-    
+    public Sex getSex();
 }

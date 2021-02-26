@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Random;
+import java.util.Iterator;
 
 public class Hare extends PreyParent
 {
@@ -10,7 +11,7 @@ public class Hare extends PreyParent
    // The age to which a rabbit can live.
    private static final int MAX_AGE = 40;
    // The likelihood of a rabbit breeding.
-   private static final double BREEDING_PROBABILITY = 0.12;
+   private static final double BREEDING_PROBABILITY = 0.8;
    // The maximum number of births.
    private static final int MAX_LITTER_SIZE = 4;
    // A shared random number generator to control breeding.
@@ -20,6 +21,8 @@ public class Hare extends PreyParent
     
    // The rabbit's age.
    private int age;
+   
+   
 
    /**
      * Create a new rabbit. A rabbit may be created with age
@@ -57,6 +60,10 @@ public class Hare extends PreyParent
             newRabbits.add(young);
         }
     }
+    
+   
+   
+   
         
 
 }
