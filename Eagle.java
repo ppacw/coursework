@@ -24,16 +24,9 @@ public class Eagle extends PredatorParent
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private static final int PREY_FOOD_VALUE = 9;
-    // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
     
-    // Individual characteristics (instance fields).
-    // The fox's age.
-    private int age;
-    // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
-    // Animals gender
-    private Sex sex;
+    
+    
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -43,7 +36,7 @@ public class Eagle extends PredatorParent
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Eagle(boolean randomAge, Field field, Location location, Sex sex){
+    public Eagle(boolean randomAge, Field field, Location location){
         super(randomAge, field, location, BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, PREY_FOOD_VALUE);
     }
     
@@ -55,7 +48,7 @@ public class Eagle extends PredatorParent
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Eagle young = new Eagle(false, field, loc, sex);
+            Eagle young = new Eagle(false, field, loc);
             newPredators.add(young);
         }
     }

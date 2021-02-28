@@ -24,10 +24,8 @@ public class Rabbit extends PreyParent
    // A shared random number generator to control breeding.
    private static final Random rand = Randomizer.getRandom();
     
-   // Individual characteristics (instance fields).
-    
-   // The rabbit's age.
-   private int age;
+   
+   
 
 
    /**
@@ -42,10 +40,7 @@ public class Rabbit extends PreyParent
     {
         super(randomAge, field, location, BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE);
         
-        age = 0;
-        if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
-        }
+        
     }
     
     

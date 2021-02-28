@@ -119,6 +119,8 @@ public class Simulator
                 it.remove();
             }
         }
+        
+       
                
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
@@ -139,7 +141,7 @@ public class Simulator
         view.showStatus(step, field);
     }
     
-    public Sex chooseSex(){
+    private Sex chooseSex(){
         int randomSexNum;
         randomSexNum = ThreadLocalRandom.current().nextInt(0, 1 + 1);
         if(randomSexNum == 0){
@@ -171,7 +173,7 @@ public class Simulator
                 case 0:
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location,chooseSex());
+                    Fox fox = new Fox(true, field, location);
                     animals.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
@@ -182,7 +184,7 @@ public class Simulator
                 case 1:
                 if(rand.nextDouble() + 1  <= EAGLE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Eagle eagle = new Eagle(true, field, location,chooseSex());
+                    Eagle eagle = new Eagle(true, field, location);
                     animals.add(eagle);
                 }
                 else if(rand.nextDouble() + 1 <= HARE_CREATION_PROBABILITY) {

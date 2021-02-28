@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Eagle
 comment0.text=\n\ A\ simple\ model\ of\ a\ fox.\n\ Foxes\ age,\ move,\ eat\ rabbits,\ and\ die.\n\ \n\ @author\ David\ J.\ Barnes\ and\ Michael\ K\u00F6lling\n\ @version\ 2016.02.29\ (2)\n
-comment1.params=randomAge\ field\ location\ sex
-comment1.target=Eagle(boolean,\ Field,\ Location,\ Sex)
+comment1.params=randomAge\ field\ location
+comment1.target=Eagle(boolean,\ Field,\ Location)
 comment1.text=\n\ Create\ a\ fox.\ A\ fox\ can\ be\ created\ as\ a\ new\ born\ (age\ zero\n\ and\ not\ hungry)\ or\ with\ a\ random\ age\ and\ food\ level.\n\ \n\ @param\ randomAge\ If\ true,\ the\ fox\ will\ have\ random\ age\ and\ hunger\ level.\n\ @param\ field\ The\ field\ currently\ occupied.\n\ @param\ location\ The\ location\ within\ the\ field.\n
 comment2.params=newPredators
 comment2.target=void\ giveBirth(java.util.List)
