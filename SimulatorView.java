@@ -17,16 +17,17 @@ import java.util.Map;
 public class SimulatorView extends JFrame
 {
     // Colors used for empty locations.
-    private static final Color EMPTY_COLOR = Color.white;
+    private Color EMPTY_COLOR = Color.white;
 
     // Color used for objects that have no defined color.
     private static final Color UNKNOWN_COLOR = Color.gray;
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JLabel stepLabel, population, infoLabel;
+    private final String TIME_PREFIX = "Time: ";
+    private JLabel stepLabel, population, timeLabel, infoLabel;
     private FieldView fieldView;
-    
+
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
@@ -42,33 +43,60 @@ public class SimulatorView extends JFrame
         stats = new FieldStats();
         colors = new LinkedHashMap<>();
 
-        setTitle("Fox and Rabbit Simulation");
+        setTitle("Predators and Preys Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
+        timeLabel = new JLabel (TIME_PREFIX, JLabel.CENTER);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
-        
+
         setLocation(100, 50);
-        
+
         fieldView = new FieldView(height, width);
 
         Container contents = getContentPane();
-        
+
         JPanel infoPane = new JPanel(new BorderLayout());
-            infoPane.add(stepLabel, BorderLayout.WEST);
-            infoPane.add(infoLabel, BorderLayout.CENTER);
+        infoPane.add(stepLabel, BorderLayout.WEST);
+        infoPane.add(timeLabel, BorderLayout.EAST);
+        infoPane.add(infoLabel, BorderLayout.CENTER);
         contents.add(infoPane, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
         pack();
         setVisible(true);
     }
-    
+
     /**
      * Define a color to be used for a given class of animal.
      * @param animalClass The animal's Class object.
      * @param color The color to be used for the given class.
      */
     public void setColor(Class animalClass, Color color)
+    {
+        colors.put(animalClass, color);
+    }
+    
+    public void setEmptyColorWhite()
+    {
+        EMPTY_COLOR = Color.WHITE;
+    }
+    
+    public void setEmptyColorLightGray()
+    {
+        
+    }
+    
+    public void setEmptyColorGray()
+    {
+        EMPTY_COLOR = Color.GRAY;
+    }
+    
+    public void setEmptyColorDarkGray()
+    {
+        EMPTY_COLOR = Color.DARK_GRAY;
+    }
+    
+    public void changeColor(Class animalClass, Color color)
     {
         colors.put(animalClass, color);
     }
@@ -84,7 +112,7 @@ public class SimulatorView extends JFrame
     /**
      * @return The color to be used for a given class of animal.
      */
-    private Color getColor(Class animalClass)
+    public Color getColor(Class animalClass)
     {
         Color col = colors.get(animalClass);
         if(col == null) {
@@ -101,15 +129,17 @@ public class SimulatorView extends JFrame
      * @param step Which iteration step it is.
      * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int step, Field field)
+    public void showStatus(int step, Field field, String time)
     {
         if(!isVisible()) {
             setVisible(true);
         }
-            
+
         stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
         
+        timeLabel.setText(TIME_PREFIX + time);
+
         fieldView.preparePaint();
 
         for(int row = 0; row < field.getDepth(); row++) {
@@ -138,7 +168,7 @@ public class SimulatorView extends JFrame
     {
         return stats.isViable(field);
     }
-    
+
     /**
      * Provide a graphical view of a rectangular field. This is 
      * a nested class (a class defined inside a class) which
@@ -173,7 +203,7 @@ public class SimulatorView extends JFrame
         public Dimension getPreferredSize()
         {
             return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR,
-                                 gridHeight * GRID_VIEW_SCALING_FACTOR);
+                gridHeight * GRID_VIEW_SCALING_FACTOR);
         }
 
         /**
@@ -197,7 +227,7 @@ public class SimulatorView extends JFrame
                 }
             }
         }
-        
+
         /**
          * Paint on grid location on this field in a given color.
          */

@@ -12,7 +12,7 @@ import java.util.Random;
 public class Eagle extends PredatorParent 
 {
     // Characteristics shared by all foxes (class variables).
-    
+
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
@@ -24,10 +24,8 @@ public class Eagle extends PredatorParent
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private static final int PREY_FOOD_VALUE = 9;
-    
-    
-    
 
+    
     /**
      * Create a fox. A fox can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
@@ -39,7 +37,7 @@ public class Eagle extends PredatorParent
     public Eagle(boolean randomAge, Field field, Location location){
         super(randomAge, field, location, BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, PREY_FOOD_VALUE);
     }
-    
+
     public void giveBirth(List<Animal> newPredators){
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -52,10 +50,8 @@ public class Eagle extends PredatorParent
             newPredators.add(young);
         }
     }
-    
-    
-    
+
     
     
 }
-    
+ 

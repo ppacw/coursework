@@ -46,7 +46,7 @@ public class FieldStats
         }
         return buffer.toString();
     }
-    
+
     /**
      * Invalidate the current set of statistics; reset all 
      * counts to zero.
@@ -104,7 +104,7 @@ public class FieldStats
         }
         return nonZero > 1;
     }
-    
+
     /**
      * Generate counts of the number of foxes and rabbits.
      * These are not kept up to date as foxes and rabbits

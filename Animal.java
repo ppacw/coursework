@@ -19,9 +19,10 @@ public abstract class Animal
     // The animal's gender
     private Sex sex;
     
+    private boolean nocturnal;
     
-    
-   /**
+        
+    /**
      * Create a new animal at location in field with sex(Male/Female).
      * 
      * @param field The field currently occupied.
@@ -37,23 +38,32 @@ public abstract class Animal
             sex = Sex.MALE;
         } else { 
             sex = Sex.FEMALE; }
-        
 
         alive = true;
         this.field = field;
         setLocation(location);
+        nocturnal = false;
     }
     
-   /**
+    public void setNocturnal()
+    {
+        nocturnal = true;
+    }
+    
+    public boolean isNocturnal()
+    {
+        return nocturnal;
+    }
+    
+    /**
      * Make this animal act - that is: make it do
      * whatever it wants/needs to do.
      * @param newAnimals A list to receive newly born animals.
      */
     abstract public void act(List<Animal> newAnimals);
-    
- 
 
-   /**
+
+    /**
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
@@ -61,8 +71,8 @@ public abstract class Animal
     {
         return alive;
     }
-    
-   /**
+
+    /**
      * 
      * @return animal's gender;
      */
@@ -71,7 +81,7 @@ public abstract class Animal
         return sex;
     } 
 
-   /**
+    /**
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
      */
@@ -85,7 +95,7 @@ public abstract class Animal
         }
     }
 
-   /**
+    /**
      * Return the animal's location.
      * @return The animal's location.
      */
@@ -93,8 +103,8 @@ public abstract class Animal
     {
         return location;
     }
-    
-   /**
+
+    /**
      * Place the animal at the new location in the given field.
      * @param newLocation The animal's new location.
      */
@@ -106,8 +116,8 @@ public abstract class Animal
         location = newLocation;
         field.place(this, newLocation);
     }
-    
-   /**
+
+    /**
      * Return the animal's field.
      * @return The animal's field.
      */
