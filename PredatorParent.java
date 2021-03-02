@@ -29,7 +29,7 @@ public abstract class PredatorParent extends Animal implements Predator
 
     // Individual characteristics (instance fields).
     // The predator's age.
-    private int age;
+    protected int age;
     // The predator's food level, which is increased by eating prey.
     private int foodLevel;
 
@@ -69,11 +69,11 @@ public abstract class PredatorParent extends Animal implements Predator
      * @param field The field currently occupied.
      * @param newPredatores A list to return newly born predatores.
      */
-    public void act(List<Animal> newPredators)
+    public void act(List<Actor> newPredators)
     {
         incrementAge();
         incrementHunger();
-        if(isAlive()) {
+        if (isAlive()) {
             giveBirth(newPredators);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
@@ -90,6 +90,8 @@ public abstract class PredatorParent extends Animal implements Predator
                 setDead();
             }
         }
+        
+        
     }
 
     /**
@@ -112,6 +114,10 @@ public abstract class PredatorParent extends Animal implements Predator
         if(foodLevel <= 0) {
             setDead();
         }
+    }
+    
+    public void setPreyFoodValue(int n){
+        PREY_FOOD_VALUE += n;
     }
 
     /**
@@ -138,13 +144,15 @@ public abstract class PredatorParent extends Animal implements Predator
         }
         return null;
     }
+    
+    
 
     /**
      * Check whether or not this predator is to give birth at this step.
      * New births will be made into free adjacent locations.
      * @param newPredatores A list to return newly born predators.
      */
-    abstract void giveBirth(List<Animal> newPredatores);
+    abstract void giveBirth(List<Actor> newPredatores);
 
     /**
      * Generate a number representing the number of births,

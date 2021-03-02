@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Plant
+comment0.text=\n\ A\ class\ representing\ shared\ characteristics\ of\ animals.\n\ \n\ @author\ David\ J.\ Barnes\ and\ Michael\ K\u00F6lling\n\ @version\ 2016.02.29\ (2)\n
+comment1.params=field\ location
+comment1.target=Plant(Field,\ Location)
+comment1.text=\n\ Create\ a\ new\ animal\ at\ location\ in\ field\ with\ sex(Male/Female).\n\ \n\ @param\ field\ The\ field\ currently\ occupied.\n\ @param\ location\ The\ location\ within\ the\ field.\n\ @param\ sex\ The\ gender\ of\ the\ animal\n
+comment2.params=
+comment2.target=void\ incrementAge()
+comment2.text=\n\ Increase\ the\ age.\n\ This\ could\ result\ in\ the\ rabbit's\ death.\n
+comment3.params=newPlants
+comment3.target=void\ act(java.util.List)
+comment3.text=\n\ This\ is\ what\ the\ rabbit\ does\ most\ of\ the\ time\ -\ it\ runs\ \n\ around.\ Sometimes\ it\ will\ breed\ or\ die\ of\ old\ age.\n\ @param\ newRabbits\ A\ list\ to\ return\ newly\ born\ rabbits.\n
+comment4.params=
+comment4.target=boolean\ growthPlant()
+comment4.text=\n\ Generate\ a\ number\ representing\ the\ number\ of\ births,\n\ if\ it\ can\ breed.\n\ @return\ The\ number\ of\ births\ (may\ be\ zero).\n
+comment5.params=newPlants
+comment5.target=void\ grow(java.util.List)
+comment5.text=\n\ Check\ whether\ or\ not\ this\ plant\ is\ to\ grow\ at\ this\ step.\n\ New\ plants\ will\ be\ made\ into\ free\ adjacent\ locations.\n\ @param\ newPlants\ A\ list\ to\ return\ newly\ grown\ plants.\n
+numComments=6

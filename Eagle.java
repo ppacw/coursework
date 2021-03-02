@@ -18,12 +18,12 @@ public class Eagle extends PredatorParent
     // The age to which a fox can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.16;
+    private static final double BREEDING_PROBABILITY = 0.2;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int PREY_FOOD_VALUE = 9;
+    private static final int PREY_FOOD_VALUE = 12;
 
     
     /**
@@ -38,7 +38,7 @@ public class Eagle extends PredatorParent
         super(randomAge, field, location, BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, PREY_FOOD_VALUE);
     }
 
-    public void giveBirth(List<Animal> newPredators){
+    public void giveBirth(List<Actor> newPredators){
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();
@@ -49,6 +49,32 @@ public class Eagle extends PredatorParent
             Eagle young = new Eagle(false, field, loc);
             newPredators.add(young);
         }
+    }
+    
+    /**
+     * A prey can breed if it has reached the breeding age.
+     * @return true if the rabbit can breed, false otherwise.
+     */
+    protected boolean canBreed()
+    {
+        if(age >= BREEDING_AGE){
+            Field field = getField();
+            List<Location> adjacent = field.adjacentLocations(getLocation());
+            Iterator<Location> it = adjacent.iterator();
+            while(it.hasNext()) {
+                Location where = it.next();
+                Object animal = field.getObjectAt(where);
+                if(animal instanceof Predator) {
+                    Predator predator = (Predator) animal;
+                    if(predator.getSex().equals(this.getSex())) { 
+                        return true;
+                    }
+                }
+
+            }
+
+        }
+        return false;
     }
 
     

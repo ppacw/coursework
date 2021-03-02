@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface Prey
 {
-    public void act(List<Animal> newRabbits);
+    public void act(List<Actor> newRabbits);
     
     public boolean isAlive();
     

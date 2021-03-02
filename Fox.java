@@ -18,12 +18,12 @@ public class Fox extends PredatorParent
     // The age to which a fox can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static final double BREEDING_PROBABILITY = 0.3;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int PREY_FOOD_VALUE = 9;
+    private static final int PREY_FOOD_VALUE = 12;
     
     
 
@@ -39,7 +39,7 @@ public class Fox extends PredatorParent
         super(randomAge, field, location, BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, PREY_FOOD_VALUE);
     } 
     
-    public void giveBirth(List<Animal> newPredators){
+    public void giveBirth(List<Actor> newPredators){
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();

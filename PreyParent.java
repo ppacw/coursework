@@ -22,6 +22,8 @@ public abstract class PreyParent extends Animal implements Prey
     private double BREEDING_PROBABILITY;
     // The maximum number of births.
     private int MAX_LITTER_SIZE;
+    // Number of steps it can go without eating
+    private int PLANT_FOOD_VALUE;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -29,6 +31,8 @@ public abstract class PreyParent extends Animal implements Prey
     
     // The rabbit's age.
     private int age;
+    // animals food level
+    protected int foodLevel;
 
 
     /**
@@ -39,32 +43,50 @@ public abstract class PreyParent extends Animal implements Prey
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public PreyParent(boolean randomAge, Field field, Location location, int BREEDING_AGE, int MAX_AGE, double BREEDING_PROBABILITY, int MAX_LITTER_SIZE)
+    public PreyParent(boolean randomAge, Field field, Location location, int BREEDING_AGE, int MAX_AGE, double BREEDING_PROBABILITY, int MAX_LITTER_SIZE, int PLANT_FOOD_VALUE)
     {
         super(field, location);
         this.BREEDING_AGE = BREEDING_AGE;
         this.MAX_AGE = MAX_AGE;
         this.BREEDING_PROBABILITY = BREEDING_PROBABILITY;
         this.MAX_LITTER_SIZE = MAX_LITTER_SIZE;
+        this.PLANT_FOOD_VALUE = 8;
 
         age = 0;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
+            foodLevel = rand.nextInt(PLANT_FOOD_VALUE);
+        }
+        else {
+            age = 0;
+            foodLevel = PLANT_FOOD_VALUE;
         }
     }
     
+    public int getAge(){
+        return age;
+    }
+    
     /**
-     * This is what the rabbit does most of the time - it runs 
-     * around. Sometimes it will breed or die of old age.
-     * @param newRabbits A list to return newly born rabbits.
+     * This is what the predator does most of the time: it hunts for
+     * preys. In the process, it might breed, die of hunger,
+     * or die of old age.
+     * @param field The field currently occupied.
+     * @param newPredatores A list to return newly born predatores.
      */
-    public void act(List<Animal> newRabbits)
+    public void act(List<Actor> newPrey)
     {
         incrementAge();
-        if(isAlive()) {
-            giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+        incrementHunger();
+        if (isAlive()) {
+            giveBirth(newPrey);            
+            // Move towards a source of food if found.
+            Location newLocation = findPlants();
+            if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
             }
@@ -73,6 +95,48 @@ public abstract class PreyParent extends Animal implements Prey
                 setDead();
             }
         }
+        
+        
+    }
+    
+    /**
+     * Make this prey more hungry. This could result in the predator's death.
+     */
+    protected void incrementHunger()
+    {
+        foodLevel--;
+        if(foodLevel <= 0) {
+            setDead();
+        }
+    }
+    
+    /**
+     * Look for plants adjacent to the current location.
+     * Only the first live plant is eaten.
+     * @return Where food was found, or null if it wasn't.
+     */
+    public Location findPlants()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object object = field.getObjectAt(where);
+            if(object instanceof Plant) {
+                Plant plant = (Plant) object;
+                if(plant.isAlive()) { 
+                    plant.setDead();
+                    foodLevel = PLANT_FOOD_VALUE;
+                    return where;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void setPlantFoodValue(int n){
+        PLANT_FOOD_VALUE += n;
     }
     
     public boolean isAlive(){
@@ -100,7 +164,7 @@ public abstract class PreyParent extends Animal implements Prey
      * New births will be made into free adjacent locations.
      * @param newRabbits A list to return newly born rabbits.
      */
-    abstract public void giveBirth(List<Animal> newRabbits);
+    abstract public void giveBirth(List<Actor> newRabbits);
     
     
 
@@ -126,28 +190,6 @@ public abstract class PreyParent extends Animal implements Prey
      * A prey can breed if it has reached the breeding age.
      * @return true if the rabbit can breed, false otherwise.
      */
-    protected boolean canBreed()
-    {
-       if(age >= BREEDING_AGE){
-            Field field = getField();
-            List<Location> adjacent = field.adjacentLocations(getLocation());
-            Iterator<Location> it = adjacent.iterator();
-            while(it.hasNext()) {
-                Location where = it.next();
-                Object animal = field.getObjectAt(where);
-                if(animal instanceof Prey) {
-                  Prey prey = (Prey) animal;
-                  if(prey.getSex().equals(this.getSex())) { 
-                    return true;
-                  }
-                }
-   
-            }
-
- 
-
-       }
-       return false;
-    }
+    abstract public boolean canBreed();
     
 }

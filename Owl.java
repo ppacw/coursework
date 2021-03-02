@@ -9,7 +9,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Owl extends PredatorParent 
+public class Owl extends PredatorParent
 {
     // Characteristics shared by all foxes (class variables).
 
@@ -18,12 +18,12 @@ public class Owl extends PredatorParent
     // The age to which a owl can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a owl breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static final double BREEDING_PROBABILITY = 0.16;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single owl. In effect, this is the
     // number of steps am owl can go before it has to eat again.
-    private static final int PREY_FOOD_VALUE = 25;
+    private static final int PREY_FOOD_VALUE = 15;
 
 
     /**
@@ -39,7 +39,7 @@ public class Owl extends PredatorParent
         setNocturnal();
     }
 
-    public void giveBirth(List<Animal> newPredators){
+    public void giveBirth(List<Actor> newPredators){
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();
@@ -51,6 +51,8 @@ public class Owl extends PredatorParent
             newPredators.add(young);
         }
     }
+    
+    
 
 }
         
