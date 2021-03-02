@@ -21,7 +21,10 @@ public abstract class Animal extends Actor
     private Sex sex;
     
     private boolean nocturnal;
-    
+    // Decides if the animal has the insomnia disease, which makes it 
+    // stay up during the night, act twice as slow and also die after a given amount of time.
+    private boolean diseased;
+    private int deathTimer;
         
     /**
      * Create a new animal at location in field with sex(Male/Female).

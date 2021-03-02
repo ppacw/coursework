@@ -76,24 +76,26 @@ public class SimulatorView extends JFrame
         colors.put(animalClass, color);
     }
     
-    public void setEmptyColorWhite()
-    {
-        EMPTY_COLOR = Color.WHITE;
+    /**
+     * Make the background color darker, if its RGB values are higher than 120.
+     */
+    public void darkenEmptyColor()
+    {    
+        int darkenAmount = 3;
+        if (EMPTY_COLOR.getRed()>120 && EMPTY_COLOR.getGreen()>120 && EMPTY_COLOR.getBlue()>120){
+            EMPTY_COLOR = new Color(EMPTY_COLOR.getRed()-darkenAmount, EMPTY_COLOR.getGreen()-darkenAmount, EMPTY_COLOR.getBlue()-darkenAmount);
+        }
     }
     
-    public void setEmptyColorLightGray()
-    {
-        
-    }
-    
-    public void setEmptyColorGray()
-    {
-        EMPTY_COLOR = Color.GRAY;
-    }
-    
-    public void setEmptyColorDarkGray()
-    {
-        EMPTY_COLOR = Color.DARK_GRAY;
+    /**
+     * Make the background color lighter, if its RGB values are lower than 255.
+     */
+    public void lightenEmptyColor()
+    {   
+        int lightenAmount = 3;
+        if (EMPTY_COLOR.getRed()<255 && EMPTY_COLOR.getGreen()<255 && EMPTY_COLOR.getBlue()<255){
+            EMPTY_COLOR = new Color(EMPTY_COLOR.getRed()+lightenAmount, EMPTY_COLOR.getGreen()+lightenAmount, EMPTY_COLOR.getBlue()+lightenAmount);
+        }
     }
     
     public void changeColor(Class animalClass, Color color)

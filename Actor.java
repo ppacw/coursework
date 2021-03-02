@@ -15,9 +15,12 @@ public abstract class Actor
     private Field field;
     // The entities position in the field.
     private Location location;
-    
+    // Decides if the animal is active at daytime or nighttime
     private boolean nocturnal;
-    
+    // Decides if the animal has the insomnia disease, which makes it 
+    // stay up during the night, act twice as slow and also die after a given amount of time.
+    private boolean diseased;
+    private int deathTimer;
     
     /**
      * Create a new entity at location in field.
@@ -30,6 +33,8 @@ public abstract class Actor
         this.field = field;
         setLocation(location);
         alive = true;
+        diseased = false;
+        deathTimer = -1;
     }
     
     public void setNocturnal()
@@ -103,4 +108,24 @@ public abstract class Actor
         return field;
     }
     
+    public void setDiseased()
+    {
+        diseased = true;
+        deathTimer = 10;
+    }
+
+    public boolean isDiseased()
+    {
+        return diseased;
+    }
+
+    public void decrementDeathTimer()
+    {
+        deathTimer--;
+    }
+
+    public int getDeathTimer()
+    {
+        return deathTimer;
+    }
 }

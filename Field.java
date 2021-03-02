@@ -132,6 +132,23 @@ public class Field
     }
     
     /**
+     * Get a list of the animals in adjacent locations
+     * @param location Get locations adjacent to this.
+     * @return A list of adjacent animal objects.
+     */
+    public List<Object> getAdjacentAnimals(Location location)
+    {
+        List<Object> animals = new LinkedList<>();
+        List<Location> adjacent = adjacentLocations(location);
+        for(Location next : adjacent) {
+            if(getObjectAt(next) != null) {
+                animals.add(getObjectAt(next));
+            }
+        }
+        return animals;
+    }
+    
+    /**
      * Try to find a free location that is adjacent to the
      * given location. If there is none, return null.
      * The returned location will be within the valid bounds

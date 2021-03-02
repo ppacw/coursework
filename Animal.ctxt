@@ -1,17 +1,17 @@
 #BlueJ class context
 comment0.target=Animal
-comment0.text=\n\ A\ class\ representing\ shared\ characteristics\ of\ animals.\n\ \n\ @author\ David\ J.\ Barnes\ and\ Michael\ K\u00F6lling\n\ @version\ 2016.02.29\ (2)\n
+comment0.text=\r\n\ A\ class\ representing\ shared\ characteristics\ of\ animals.\r\n\ \r\n\ @author\ David\ J.\ Barnes\ and\ Michael\ K\u00F6lling\r\n\ @version\ 2016.02.29\ (2)\r\n
 comment1.params=field\ location
 comment1.target=Animal(Field,\ Location)
-comment1.text=\n\ Create\ a\ new\ animal\ at\ location\ in\ field\ with\ sex(Male/Female).\n\ \n\ @param\ field\ The\ field\ currently\ occupied.\n\ @param\ location\ The\ location\ within\ the\ field.\n\ @param\ sex\ The\ gender\ of\ the\ animal\n
+comment1.text=\r\n\ Create\ a\ new\ animal\ at\ location\ in\ field\ with\ sex(Male/Female).\r\n\ \r\n\ @param\ field\ The\ field\ currently\ occupied.\r\n\ @param\ location\ The\ location\ within\ the\ field.\r\n\ @param\ sex\ The\ gender\ of\ the\ animal\r\n
 comment2.params=
 comment2.target=void\ setNocturnal()
 comment3.params=
 comment3.target=boolean\ isNocturnal()
 comment4.params=newActors
 comment4.target=void\ act(java.util.List)
-comment4.text=\n\ Make\ this\ animal\ act\ -\ that\ is\:\ make\ it\ do\n\ whatever\ it\ wants/needs\ to\ do.\n\ @param\ newAnimals\ A\ list\ to\ receive\ newly\ born\ animals.\n
+comment4.text=\r\n\ Make\ this\ animal\ act\ -\ that\ is\:\ make\ it\ do\r\n\ whatever\ it\ wants/needs\ to\ do.\r\n\ @param\ newAnimals\ A\ list\ to\ receive\ newly\ born\ animals.\r\n
 comment5.params=
 comment5.target=Sex\ getSex()
-comment5.text=\n\ \n\ @return\ animal's\ gender;\n
+comment5.text=\r\n\ \r\n\ @return\ animal's\ gender;\r\n
 numComments=6
