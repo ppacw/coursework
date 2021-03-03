@@ -16,8 +16,6 @@ public abstract class Actor
     private Field field;
     // The entities position in the field.
     private Location location;
-    //disease probability
-    private double DISEASE_PROBABILITY = 0.02;
     // Decides if the animal is active at daytime or nighttime
     private boolean nocturnal;
     // Decides if the animal has the insomnia disease, which makes it 
@@ -118,7 +116,7 @@ public abstract class Actor
     public void catchDisease()
     {
         diseased = true;
-        deathTimer = 10;
+        deathTimer = 12;
     }
 
     public boolean isDiseased()

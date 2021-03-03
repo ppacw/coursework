@@ -4,21 +4,21 @@ import java.util.Iterator;
 import java.lang.NullPointerException;
 
 /**
- * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
+ * A simple model of a prey.
+ * Preys age, move, breed, and die.
  * 
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
 public abstract class PreyParent extends Animal implements Prey
 {
-    // Characteristics shared by all rabbits (class variables).
+    // Characteristics shared by all preys (class variables).
 
-    // The age at which a rabbit can start to breed.
+    // The age at which a prey can start to breed.
     private  int BREEDING_AGE;
-    // The age to which a rabbit can live.
+    // The age to which a prey can live.
     private  int MAX_AGE;
-    // The likelihood of a rabbit breeding.
+    // The likelihood of a prey breeding.
     private double BREEDING_PROBABILITY;
     // The maximum number of births.
     private int MAX_LITTER_SIZE;
@@ -26,20 +26,19 @@ public abstract class PreyParent extends Animal implements Prey
     private int PLANT_FOOD_VALUE;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
+
     // Individual characteristics (instance fields).
-    
-    // The rabbit's age.
+
+    // The prey's age.
     private int age;
     // animals food level
     protected int foodLevel;
 
-
     /**
-     * Create a new rabbit. A rabbit may be created with age
+     * Create a new prey. A prey may be created with age
      * zero (a new born) or with a random age.
      * 
-     * @param randomAge If true, the rabbit will have a random age.
+     * @param randomAge If true, the prey will have a random age.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
@@ -62,11 +61,11 @@ public abstract class PreyParent extends Animal implements Prey
             foodLevel = PLANT_FOOD_VALUE;
         }
     }
-    
+
     public int getAge(){
         return age;
     }
-    
+
     /**
      * This is what the predator does most of the time: it hunts for
      * preys. In the process, it might breed, die of hunger,
@@ -95,10 +94,8 @@ public abstract class PreyParent extends Animal implements Prey
                 setDead();
             }
         }
-        
-        
+
     }
-    
     /**
      * Make this prey more hungry. This could result in the predator's death.
      */
@@ -109,7 +106,7 @@ public abstract class PreyParent extends Animal implements Prey
             setDead();
         }
     }
-    
+
     /**
      * Look for plants adjacent to the current location.
      * Only the first live plant is eaten.
@@ -134,22 +131,22 @@ public abstract class PreyParent extends Animal implements Prey
         }
         return null;
     }
-    
+
     public void setPlantFoodValue(int n){
         PLANT_FOOD_VALUE += n;
     }
-    
+
     public boolean isAlive(){
         return super.isAlive();
     }
-    
+
     public void setDead(){
         super.setDead();
     }
 
     /**
      * Increase the age.
-     * This could result in the rabbit's death.
+     * This could result in the prey's death.
      */
     private void incrementAge()
     {
@@ -158,15 +155,14 @@ public abstract class PreyParent extends Animal implements Prey
             setDead();
         }
     }
-    
+
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this prey is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newRabbits A list to return newly born rabbits.
+     * @param newPreys A list to return newly born preys.
      */
-    abstract public void giveBirth(List<Actor> newRabbits);
-    
-    
+    abstract public void giveBirth(List<Actor> newPreys);
+
 
     /**
      * Generate a number representing the number of births,
@@ -181,15 +177,15 @@ public abstract class PreyParent extends Animal implements Prey
         }
         return births;
     }
-    
+
     public Sex getSex(){
         return super.getSex();
     }
 
     /**
      * A prey can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
+     * @return true if the prey can breed, false otherwise.
      */
     abstract public boolean canBreed();
-    
+
 }

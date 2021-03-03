@@ -22,7 +22,7 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.16;    
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
     // The probability that a eagle will be created in any given grid position.
     private static final double EAGLE_CREATION_PROBABILITY = 0.02 + 1;
     // The probability that a rabbit will be created in any given grid position.
@@ -32,7 +32,7 @@ public class Simulator
     // The probability that a rabbit will be created in any given grid position.
     private static final double TORTOISE_CREATION_PROBABILITY = 0.08 + 3;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double PLANT_CREATION_PROBABILITY = 0.15 + 3;
+    private static final double PLANT_CREATION_PROBABILITY = 0.02 + 3;
     // The probability that an animal will be created with a disease.
     private static final double DISEASE_PROBABILITY = 0.3;
 
@@ -131,10 +131,9 @@ public class Simulator
         List<Actor> newActors = new ArrayList<>();        
         // Let all actors act.
 
-        
-            for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-                Actor actor = it.next();
-                if(weather.isFoggy()){
+        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
+            if(weather.isFoggy()){
                 if(step % 2 == 0){
                     if (!actor.isNocturnal() && !time.isNighttime() || (actor.isNocturnal() && time.isNighttime()) || actor.isDiseased()){
                         if(!(actor instanceof Plant)){
@@ -176,10 +175,8 @@ public class Simulator
                 }
             } 
         }
-        
-         
-        
 
+        
 
         Location location = new Location(rand.nextInt(field.getDepth()), rand.nextInt(field.getWidth()));
         Plant plant = new Plant(field, location);
