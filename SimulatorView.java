@@ -25,7 +25,8 @@ public class SimulatorView extends JFrame
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
     private final String TIME_PREFIX = "Time: ";
-    private JLabel stepLabel, population, timeLabel, infoLabel;
+    private final String WEATHER_PREFIX = "Weather: ";
+    private JLabel stepLabel, population, timeLabel, infoLabel, weatherLabel;
     private FieldView fieldView;
 
     // A map for storing colors for participants in the simulation
@@ -46,6 +47,7 @@ public class SimulatorView extends JFrame
         setTitle("Predators and Preys Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         timeLabel = new JLabel (TIME_PREFIX, JLabel.CENTER);
+        weatherLabel = new JLabel (WEATHER_PREFIX, JLabel.CENTER);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
 

@@ -93,6 +93,31 @@ public abstract class PredatorParent extends Animal implements Predator
         
         
     }
+    
+    /**
+     * Look for plants adjacent to the current location.
+     * Only the first live plant is eaten.
+     * @return Where food was found, or null if it wasn't.
+     */
+    public Location findPlants()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object object = field.getObjectAt(where);
+            if(object instanceof Plant) {
+                Plant plant = (Plant) object;
+                if(plant.isAlive()) { 
+                    plant.setDead();
+                    this.catchDisease();
+                    return where;
+                }
+            }
+        }
+        return null;
+    }
 
     /**
      * Increase the age. This could result in the predator's death.

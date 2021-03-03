@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Weather
+comment0.text=\n\ Write\ a\ description\ of\ class\ Weather\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=time
+comment1.target=Weather(Time)
+comment2.params=
+comment2.target=void\ changeWeather()
+comment3.params=
+comment3.target=java.lang.String\ getWeatherString()
+comment3.text=\n\ @return\ the\ current\ time\ as\ a\ String\ in\ the\ HH\:MM\ time\ format\n
+comment4.params=
+comment4.target=boolean\ isFoggy()
+numComments=5

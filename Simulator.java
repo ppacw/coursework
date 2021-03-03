@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.awt.Color;
 import java.util.concurrent.ThreadLocalRandom;
 
-
 /**
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
@@ -47,11 +46,12 @@ public class Simulator
     private SimulatorView view;
     // An instance of time
     private Time time;
+    //An instance of Weather
+    private Weather weather;
     //plant step counter, only grow plant every 5 steps.
     private int plantCounter = 0;
 
     Random rand = new Random();
-
     /**
      * Construct a simulation field with default size.
      */
@@ -77,6 +77,7 @@ public class Simulator
         actors = new ArrayList<>();
         field = new Field(depth, width);
         time = new Time();
+        weather = new Weather(time);
 
         //Color rabbitColor = new Color(105, 85, 55);
 
@@ -99,6 +100,7 @@ public class Simulator
      */
     public void runLongSimulation()
     {
+
         simulate(4000);
     }
 
@@ -111,6 +113,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
+            if(time.getHours() == 8 && time.getMinutes() == 0){weather.changeWeather();} // if time is 8am it will change weather to foggy
             delay(20);   // uncomment this to run more slowly
         }
     }
@@ -124,45 +127,71 @@ public class Simulator
     {
         step++;
         plantCounter++;
-
         // Provide space for newborn actors.
         List<Actor> newActors = new ArrayList<>();        
         // Let all actors act.
-        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-            Actor actor = it.next();
-            if (!actor.isNocturnal() && !time.isNighttime() || (actor.isNocturnal() && time.isNighttime()) || actor.isDiseased())
-                if(!(actor instanceof Plant)){
-                    if(! actor.isAlive()) {
-                        it.remove();
-                    } else {
-                        actor.act(newActors);
+
+        
+            for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+                Actor actor = it.next();
+                if(weather.isFoggy()){
+                if(step % 2 == 0){
+                    if (!actor.isNocturnal() && !time.isNighttime() || (actor.isNocturnal() && time.isNighttime()) || actor.isDiseased()){
+                        if(!(actor instanceof Plant)){
+                            if(! actor.isAlive()) {
+                                it.remove();
+                            } else {
+                                actor.act(newActors);
+                            }
+                        } else if (actor instanceof Plant){
+                            if(plantCounter % 2 == 0 && !time.isNighttime()){ actor.act(newActors); }
+                        }else if(actor.isDiseased()) {
+                            //showDisease(animal, animal.getLocation());
+                            if (actor.getDeathTimer() == 0){
+                                actor.setDead();
+                            }else{
+                                actor.decrementDeathTimer();
+                            }
+                        }
                     }
-                } else {
-                    if (actor instanceof Plant){
+                }  
+            } else if(!weather.isFoggy()){
+                if (!actor.isNocturnal() && !time.isNighttime() || (actor.isNocturnal() && time.isNighttime()) || actor.isDiseased()){
+                    if(!(actor instanceof Plant)){
+                        if(! actor.isAlive()) {
+                            it.remove();
+                        } else {
+                            actor.act(newActors);
+                        }
+                    } else if (actor instanceof Plant){
                         if(plantCounter % 2 == 0 && !time.isNighttime()){ actor.act(newActors); }
-                    } 
+                    }else if(actor.isDiseased()) {
+                        //showDisease(animal, animal.getLocation());
+                        if (actor.getDeathTimer() == 0){
+                            actor.setDead();
+                        }else{
+                            actor.decrementDeathTimer();
+                        }
+                    }
                 }
-            if(actor.isDiseased()) {
-                //showDisease(animal, animal.getLocation());
-                if (actor.getDeathTimer() == 0){
-                    actor.setDead();
-                }
-                else{
-                    actor.decrementDeathTimer();
-                }
-            }
+            } 
         }
+        
+         
+        
+
 
         Location location = new Location(rand.nextInt(field.getDepth()), rand.nextInt(field.getWidth()));
         Plant plant = new Plant(field, location);
         actors.add(plant);
 
-       
-        // Add the newly born foxes and rabbits to the main lists.
+        // Add the newly born species to the main lists.
         actors.addAll(newActors);
         changeBrightness();
         time.timeIncrement();
-        view.showStatus(step, field, time.getTimeString());
+        //view.showStatus(step, field, time.getTimeString());
+        view.showStatus(step, field, weather.getWeatherString());
+
     }
 
     /**
@@ -220,12 +249,12 @@ public class Simulator
                         Location location = new Location(row, col);
                         Fox fox = new Fox(true, field, location);
                         actors.add(fox);
-                        givePossibleDisease(rand.nextDouble(), fox);
+
                     } else if(rand.nextDouble() + 2 <= EARTHWORM_CREATION_PROBABILITY) {
                         Location location = new Location(row, col);
                         Earthworm earthworm = new Earthworm(true, field, location);
                         actors.add(earthworm);
-                        givePossibleDisease(rand.nextDouble(), earthworm);
+
                     }
 
                     case 1:
@@ -233,7 +262,7 @@ public class Simulator
                         Location location = new Location(row, col);
                         Eagle eagle = new Eagle(true, field, location);
                         actors.add(eagle);
-                        givePossibleDisease(rand.nextDouble(), eagle);
+
                     }
 
                     case 2:
@@ -241,12 +270,12 @@ public class Simulator
                         Location location = new Location(row, col);
                         Rabbit rabbit = new Rabbit(true, field, location);
                         actors.add(rabbit);
-                        givePossibleDisease(rand.nextDouble(), rabbit);
+
                     } else if(rand.nextDouble() + 2 <= OWL_CREATION_PROBABILITY) {
                         Location location = new Location(row, col);
                         Owl owl = new Owl(true, field, location);
                         actors.add(owl);
-                        givePossibleDisease(rand.nextDouble(), owl);
+
                     }
                     case 3:
                     if(rand.nextDouble() + 3 <= PLANT_CREATION_PROBABILITY) {
@@ -260,13 +289,6 @@ public class Simulator
         }
     }
 
-    private void givePossibleDisease(double randomDouble, Actor actor)
-    {
-        if (randomDouble <= DISEASE_PROBABILITY){
-            actor.setDiseased();
-        }
-    }
-    
     /**
      * Pause for a given time.
      * @param millisec  The time to pause for, in milliseconds

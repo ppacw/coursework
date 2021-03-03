@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 /**
  * A class representing an existent object in the field.
  * 
@@ -15,12 +16,16 @@ public abstract class Actor
     private Field field;
     // The entities position in the field.
     private Location location;
+    //disease probability
+    private double DISEASE_PROBABILITY = 0.02;
     // Decides if the animal is active at daytime or nighttime
     private boolean nocturnal;
     // Decides if the animal has the insomnia disease, which makes it 
     // stay up during the night, act twice as slow and also die after a given amount of time.
     private boolean diseased;
     private int deathTimer;
+    private Random rand = new Random();
+    
     
     /**
      * Create a new entity at location in field.
@@ -33,9 +38,11 @@ public abstract class Actor
         this.field = field;
         setLocation(location);
         alive = true;
-        diseased = false;
+        
         deathTimer = -1;
     }
+    
+
     
     public void setNocturnal()
     {
@@ -48,7 +55,7 @@ public abstract class Actor
     }
     
     /**
-     * Make this animal act - that is: make it do
+     * Make this actor act - that is: make it do
      * whatever it wants/needs to do.
      * @param newAnimals A list to receive newly born animals.
      */
@@ -108,7 +115,7 @@ public abstract class Actor
         return field;
     }
     
-    public void setDiseased()
+    public void catchDisease()
     {
         diseased = true;
         deathTimer = 10;

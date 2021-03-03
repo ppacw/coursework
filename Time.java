@@ -1,4 +1,4 @@
-
+import java.util.Random;
 /**
  * Write a description of class Time here.
  *
@@ -9,6 +9,8 @@ public class Time
 {
     private int hours;
     private int minutes;
+    
+    
     /**
      * Constructor for objects of class Time
      */
@@ -34,6 +36,8 @@ public class Time
             hours = 0;
         }
     }
+    
+    
     
     /**
      * @return the current time as a String in the HH:MM time format

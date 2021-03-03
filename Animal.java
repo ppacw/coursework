@@ -73,6 +73,10 @@ public abstract class Animal extends Actor
     {
         return sex;
     } 
+    
+    
+    
+    
 
     
 
